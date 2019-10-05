@@ -2,11 +2,28 @@
 
 - name: 1 - Criando o(s) servidor(es) de monitoramento
   hosts: monitoring
+  vars_files: 
+    - vars/variables_container_grafana.yml
   roles:
     - docker
 
-  tasks:
-    # task 1
+  tasks:  
     - name: Instalando o Python e Python-PIP
       package: name=python,python-pip state=latest
       when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+    - name: Instala o modulo Docker para Python
+      pip:
+        name: docker
+
+    - name: Iniciando o Grafana
+      #include_vars: 
+      #  file: vars/variables_container_grafana.yml
+      include_role:
+        name: container_grafana
+      
+    - debug:
+        msg: "Some task {{ container_name }}" 
+      
+
+      

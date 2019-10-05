@@ -133,9 +133,12 @@ Fonte:
 * http://ansible-br.org
 * https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04
 * https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+* https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html
 * https://raymii.org/s/tutorials/Ansible_-_Only_if_on_specific_distribution_or_distribution_version.html
 * https://docs.docker.com/install/linux/docker-ce/ubuntu/
 * https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html
+* https://dev4devs.com/2018/10/29/ansible-how-to-include-tasks-and-variables-file-definitions/
+* https://www.slideshare.net/jtyr/variable-precedence-where-should-i-put-a-variable
 
 Bons testes!
 

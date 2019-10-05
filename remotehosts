@@ -1,0 +1,6 @@
+#Contem o nome do grupo de hosts e a lista de hosts
+[monitoring]
+192.168.56.70
+
+[monitoring:vars]
+ansible_connection=ssh

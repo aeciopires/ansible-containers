@@ -1,0 +1,18 @@
+--- 
+# Instalando requisitos do Docker quando for Ubuntu 18.04
+- name: Instalando os pre-requisitos do Docker no Ubuntu 18.04
+  package: name=apt-transport-https,ca-certificates,curl,gnupg-agent,software-properties-common  state=latest
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+- name: Adicionando a chave GPG do repositorio oficial do Docker
+  apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+- name: Add Docker APT repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/{{ansible_distribution|lower}} {{ansible_distribution_release}} stable
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'  
+
+# Instalando o Docker
+- name: Instalando o Docker
+  package: name=docker-ce state=latest

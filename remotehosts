@@ -1,6 +1,14 @@
-#Contem o nome do grupo de hosts e a lista de hosts
+# Contem o nome do grupo de hosts e a lista de hosts
 [monitoring]
 192.168.56.70
 
+# Declaracao de variaveis comuns a todos os hosts do grupo
 [monitoring:vars]
 ansible_connection=ssh
+#ansible_ssh_user=LOGIN
+ansible_ssh_user=aecio
+ansible_become=yes
+ansible_become_method=sudo 
+#ansible_sudo_pass=SUDO_PASSWORD
+ansible_sudo_pass=aecio
+

@@ -37,8 +37,8 @@ Descrição dos diretórios deste repositório:
 Neste tutorial será mostrado como instalar o Ansible no Ubuntu 18.04.
 Informações sobre como instalar o Ansible em outras distribuições GNU/Linux podem ser encontradas nos links a seguir.
 
-http://ansible-br.org/primeiros-passos/guia-rapido/
-https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+* http://ansible-br.org/primeiros-passos/guia-rapido/
+* https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
 No Ubuntu 18.04:
 
@@ -94,7 +94,7 @@ git clone https://github.com/aeciopires/ansible-containers
 cd ansible-containers
 ```
 
-Neste diretório foi criado o arquivo [``remotehosts``](https://github.com/aeciopires/ansible-containers/blob/master/remotehosts) contendo as informações de acesso a máquina virtual. Altere de acordo com o seu ambiente de testes.
+Neste diretório foi criado o arquivo [``remotehosts``](https://github.com/aeciopires/ansible-containers/blob/master/remotehosts) contendo as informações de um grupo de host, o IP do host e algumas variáveis a ser aplicadas apenas nos hosts que fazem parte do grupo. Altere de acordo com o seu ambiente de testes.
 
 Configure a relação de confiança do SSH usando par de chaves RSA entre o host que tem o Ansible instalado e host remoto. Siga o passo 4 desse [tutorial](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04#step-four-%E2%80%94-add-public-key-authentication-(recommended))
 
@@ -116,12 +116,26 @@ O resultado deve ser algo semelhante a:
   }
 ```
 
+Ainda no diretório ``ansible-containers``, existe o arquivo [``playbook.yml``](https://github.com/aeciopires/ansible-containers/blob/master/playbook.yml) contendo o nome do grupo de hosts alvo e a sequência de tasks a serem executados.
 
-Os comandos a seguir devem ser executados para aplicar o estado desejado nos hosts.
+O comando a seguir deve ser executado para aplicar o estado desejado nos hosts.
 
 ```bash
-
+ansible-playbook -i remotehosts playbook.yml
 ```
+
+
+Algumas dicas e truques para usar o Ansible, estão publicadas [aqui.](http://ansible-br.org/primeiros-passos/guia-rapido/passo-7/)
+
+Fonte:
+* https://8gwifi.org/docs/ansible-sudo-ssh-password.jsp
+* https://www.cyberciti.biz/faq/how-to-set-and-use-sudo-password-for-ansible-vault/
+* http://ansible-br.org
+* https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04
+* https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+* https://raymii.org/s/tutorials/Ansible_-_Only_if_on_specific_distribution_or_distribution_version.html
+* https://docs.docker.com/install/linux/docker-ce/ubuntu/
+* https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html
 
 Bons testes!
 

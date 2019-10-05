@@ -1,0 +1,12 @@
+---
+
+- name: 1 - Criando o(s) servidor(es) de monitoramento
+  hosts: monitoring
+  roles:
+    - docker
+
+  tasks:
+    # task 1
+    - name: Instalando o Python e Python-PIP
+      package: name=python,python-pip state=latest
+      when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'

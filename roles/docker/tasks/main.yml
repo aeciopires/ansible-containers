@@ -1,0 +1,5 @@
+--- 
+# Instala o Docker-CE de acordo com o sistema operacional
+- name: Instalando o Docker no Ubuntu
+  import_tasks: install_docker_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'

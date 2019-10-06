@@ -4,9 +4,7 @@
   hosts: monitoring
   vars_files: 
     - vars/variables_general.yml
-    - vars/variables_container_grafana.yml
-    - vars/variables_container_prometheus.yml
-    - vars/variables_container_zabbix.yml
+    - vars/groups/monitoring.yml    
   roles:
     - docker
 
@@ -19,7 +17,7 @@
       pip:
         name: docker
 
-    - name: Iniciando o Grafana
+    - name: Executando a role que cria o conteiner do Grafana
       include_role:
         name: container_grafana
       

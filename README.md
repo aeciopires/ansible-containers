@@ -94,14 +94,14 @@ git clone https://github.com/aeciopires/ansible-containers
 cd ansible-containers
 ```
 
-Neste diretório foi criado o arquivo [``remotehosts``](https://github.com/aeciopires/ansible-containers/blob/master/remotehosts) contendo as informações de um grupo de host, o IP do host e algumas variáveis a ser aplicadas apenas nos hosts que fazem parte do grupo. Altere de acordo com o seu ambiente de testes.
+Neste diretório foi criado o arquivo [``production_hosts``](https://github.com/aeciopires/ansible-containers/blob/master/production_hosts) contendo as informações de um grupo de host, o IP do host e algumas variáveis a ser aplicadas apenas nos hosts que fazem parte do grupo. Altere de acordo com o seu ambiente de testes.
 
 Configure a relação de confiança do SSH usando par de chaves RSA entre o host que tem o Ansible instalado e host remoto. Siga o passo 4 desse [tutorial](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04#step-four-%E2%80%94-add-public-key-authentication-(recommended))
 
-Verifique se a máquina virtual remota está acessível para o Ansible com o seguinte comando.
+Verifique se a máquina virtual remota pertencente ao grupo ``monitoring`` está acessível para o Ansible com o seguinte comando.
 
 ```bash
-ansible -i remotehosts -m ping monitoring
+ansible -i production_hosts -m ping monitoring
 ```
 
 O resultado deve ser algo semelhante a:
@@ -116,12 +116,12 @@ O resultado deve ser algo semelhante a:
   }
 ```
 
-Ainda no diretório ``ansible-containers``, existe o arquivo [``playbook.yml``](https://github.com/aeciopires/ansible-containers/blob/master/playbook.yml) contendo o nome do grupo de hosts alvo e a sequência de tasks a serem executados.
+Ainda no diretório ``ansible-containers``, existe o arquivo [``playbook.yml``](https://github.com/aeciopires/ansible-containers/blob/master/playbook.yml) contendo o nome do grupo de hosts alvo e a sequência de roles e tasks a serem executadas.
 
-O comando a seguir deve ser executado para aplicar o estado desejado nos hosts.
+O comando a seguir deve ser executado para aplicar o estado desejado nos hosts do grupo ``monitoring``.
 
 ```bash
-ansible-playbook -i remotehosts playbook.yml
+ansible-playbook -i production_hosts playbook.yml
 ```
 
 

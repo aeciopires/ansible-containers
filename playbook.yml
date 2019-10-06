@@ -3,7 +3,10 @@
 - name: 1 - Criando o(s) servidor(es) de monitoramento
   hosts: monitoring
   vars_files: 
+    - vars/variables_general.yml
     - vars/variables_container_grafana.yml
+    - vars/variables_container_prometheus.yml
+    - vars/variables_container_zabbix.yml
   roles:
     - docker
 
@@ -17,13 +20,11 @@
         name: docker
 
     - name: Iniciando o Grafana
-      #include_vars: 
-      #  file: vars/variables_container_grafana.yml
       include_role:
         name: container_grafana
       
     - debug:
-        msg: "Some task {{ container_name }}" 
+        msg: "Some task {{ grafana_container_name }}" 
       
 
       

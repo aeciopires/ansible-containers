@@ -1,4 +1,4 @@
 --- 
 # Cria container
-- name: "Criando containers {{ container_name }}"
+- name: "Criando containers {{ grafana_container_name }}"
   import_tasks: create_container.yml

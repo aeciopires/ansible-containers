@@ -1,12 +1,13 @@
-container_name: grafana
-container_image: grafana/grafana
-host_dir_volume: /docker/grafana/data
-container_dir_volume: /var/lib/grafana
-host_port: 3000
-container_port: 3000
-permissions: 1755
-container_user_id: 472
-container_group_id: 472
+# Variaveis uteis a inicializacao do conteiner do grafana
+grafana_container_name: grafana
+grafana_container_image: grafana/grafana
+grafana_host_dir_volume: /docker/grafana/data
+grafana_container_dir_volume: /var/lib/grafana
+grafana_host_port: "3000"
+grafana_container_port: "3000"
+grafana_permissions: "1755"
+grafana_container_user_id: "472"
+grafana_container_group_id: "472"
 container_restart_policy: always
 grafana_plugins: grafana-clock-panel,briangann-gauge-panel,alexanderzobnin-zabbix-app
 grafana_protocol: http

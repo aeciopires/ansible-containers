@@ -1,2 +1,1 @@
-name: World
-
+container_restart_policy: always

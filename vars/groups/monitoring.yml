@@ -8,6 +8,18 @@ grafana_container_port: "3000"
 grafana_permissions: "1755"
 grafana_container_user_id: "472"
 grafana_container_group_id: "472"
-container_restart_policy: always
 grafana_plugins: grafana-clock-panel,briangann-gauge-panel,alexanderzobnin-zabbix-app
 grafana_protocol: http
+
+# Variaveis uteis a inicializacao do conteiner do prometheus
+prometheus_container_name: prometheus
+prometheus_container_image: prom/prometheus
+prometheus_host_dir_volume: /docker/prometheus/data
+prometheus_container_dir_volume: /prometheus
+prometheus_host_config_volume: /docker/prometheus/prometheus.yml
+prometheus_container_config_volume: /etc/prometheus/prometheus.yml
+prometheus_host_port: "9090"
+prometheus_container_port: "9090"
+prometheus_permissions: "1755"
+prometheus_container_user_id: "65534"
+prometheus_container_group_id: "65534"

@@ -5,10 +5,11 @@
 # Declaracao de variaveis comuns a todos os hosts do grupo
 [monitoring:vars]
 ansible_connection=ssh
-#ansible_ssh_user=LOGIN
-ansible_ssh_user=aecio
+#ansible_user=LOGIN
+ansible_user=aecio
 ansible_become=yes
-ansible_become_method=sudo 
-#ansible_sudo_pass=SUDO_PASSWORD
-ansible_sudo_pass=aecio
+ansible_become_method=sudo
+# A senha do sudo eh criptografada com o ansible-valt no arquivo passwd.yml
+ansible_become_pass='{{ sudo_password }}'
+
 

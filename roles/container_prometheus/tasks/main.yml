@@ -1,0 +1,4 @@
+--- 
+# Cria container
+- name: "Criando o conteiner {{ prometheus_container_name }}"
+  import_tasks: create_container.yml

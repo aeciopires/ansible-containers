@@ -1,0 +1,34 @@
+--- 
+# Criando os containers
+- name: "Criando o diretorio local do volume {{ prometheus_host_dir_volume }}"
+  file:
+    path: "{{ prometheus_host_dir_volume }}"
+    state: directory
+    owner: "{{ prometheus_container_user_id }}"
+    group: "{{ prometheus_container_group_id }}"
+    mode: "{{ prometheus_permissions }}"
+
+- name: "Criando o arquivo local do volume {{ prometheus_host_config_volume }}"
+  file:
+    path: "{{ prometheus_host_config_volume }}"
+    state: touch
+    owner: "{{ prometheus_container_user_id }}"
+    group: "{{ prometheus_container_group_id }}"
+    mode: "{{ prometheus_permissions }}"
+
+- name: "Criando o conteiner {{ prometheus_container_name }} "
+  docker_container:
+    name: "{{ prometheus_container_name }}"
+    image: "{{ prometheus_container_image }}"
+    detach: yes
+    volumes:
+      - "{{ prometheus_host_dir_volume }}:{{ prometheus_container_dir_volume }}"
+      - "{{ prometheus_host_config_volume }}:{{ prometheus_container_config_volume }}"
+    restart_policy: "{{ container_restart_policy }}"
+    ports:
+          - "{{ prometheus_host_port }}:{{ prometheus_container_port }}"
+
+
+
+
+

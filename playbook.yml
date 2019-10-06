@@ -20,9 +20,7 @@
     - name: Executando a role que cria o conteiner do Grafana
       include_role:
         name: container_grafana
-      
-    - debug:
-        msg: "Some task {{ grafana_container_name }}" 
-      
 
-      
+    - name: Executando a role que cria o conteiner do Prometheus
+      include_role:
+        name: container_prometheus

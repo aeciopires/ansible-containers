@@ -24,13 +24,7 @@ usando no aprendizado desta ferramenta.
 
 http://blog.aeciopires.com/primeiros-passos-com-ansible/
 
-O objetivo do código compartilhado neste repositório é...
-
-Descrição dos diretórios deste repositório:
-
-* bla bla bla
-* bla bla bla
-* bla bla bla
+O objetivo do código compartilhado neste repositório é executar o Ansible para instalar o Docker-CE e iniciar conteiners do Grafana, Prometheus, MySQL e Zabbix.
 
 # Instalando e Configurando o Ansible
 
@@ -138,6 +132,8 @@ ansible-vault rekey passwd.yml
 ansible -i production_hosts  --ask-vault-pass --extra-vars '@passwd.yml' -m ping monitoring
 ```
 
+Será solicitada a senha do vault. 
+
 O resultado deve ser algo semelhante a:
 
 ```
@@ -150,7 +146,13 @@ O resultado deve ser algo semelhante a:
   }
 ```
 
-10) Ainda no diretório ``ansible-containers``, existe o arquivo [``playbook.yml``](https://github.com/aeciopires/ansible-containers/blob/master/playbook.yml) contendo o nome do grupo de hosts alvo e a sequência de roles e tasks a serem executadas.
+10) Execute o comando a seguir para ver as propriedades ou fatos os hosts que fazem parte do grupo ``monitoring``.
+
+```bash
+ansible -i production_hosts --ask-vault-pass --extra-vars '@passwd.yml' -m setup monitoring
+```
+
+11) Ainda no diretório ``ansible-containers``, existe o arquivo [``playbook.yml``](https://github.com/aeciopires/ansible-containers/blob/master/playbook.yml) contendo o nome do grupo de hosts alvo e a sequência de roles e tasks a serem executadas.
 
 O comando a seguir deve ser executado para aplicar o estado desejado nos hosts do grupo ``monitoring``.
 
@@ -158,23 +160,40 @@ O comando a seguir deve ser executado para aplicar o estado desejado nos hosts d
 ansible-playbook -i production_hosts --ask-vault-pass --extra-vars '@passwd.yml' playbook.yml
 ```
 
-11) Algumas dicas e truques para usar o Ansible, estão publicadas [aqui.](http://ansible-br.org/primeiros-passos/guia-rapido/passo-7/)
+12) Algumas dicas e truques para usar o Ansible, estão publicadas [aqui.](http://ansible-br.org/primeiros-passos/guia-rapido/passo-7/)
 
 Fonte:
 * https://8gwifi.org/docs/ansible-sudo-ssh-password.jsp
-* https://www.cyberciti.biz/faq/how-to-set-and-use-sudo-password-for-ansible-vault/
+* https://www.cyberciti.biz/faq/how-to-set-and-use-sudo-password-for-ansible-vault
 * http://ansible-br.org
 * https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04
 * https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 * https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html
 * https://raymii.org/s/tutorials/Ansible_-_Only_if_on_specific_distribution_or_distribution_version.html
-* https://docs.docker.com/install/linux/docker-ce/ubuntu/
+* https://docs.docker.com/install/linux/docker-ce/ubuntu
 * https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html
-* https://dev4devs.com/2018/10/29/ansible-how-to-include-tasks-and-variables-file-definitions/
+* https://dev4devs.com/2018/10/29/ansible-how-to-include-tasks-and-variables-file-definitions
 * https://www.slideshare.net/jtyr/variable-precedence-where-should-i-put-a-variable
 * https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
-* https://www.toptechskills.com/ansible-tutorials-courses/ansible-include-import-tasks-tutorial-examples/
-* https://www.cyberciti.biz/faq/how-to-set-and-use-sudo-password-for-ansible-vault/
+* https://www.toptechskills.com/ansible-tutorials-courses/ansible-include-import-tasks-tutorial-examples
+* https://www.cyberciti.biz/faq/how-to-set-and-use-sudo-password-for-ansible-vault
+* https://stackoverflow.com/questions/27335204/ansible-check-if-variable-equals-string
+* http://blog.aeciopires.com/zabbix-docker
+
+12) Informações de acesso aos serviços.
+
+Grafana:
+URL: http://IP-SERVIDOR:3000
+Login: admin
+Senha: admin
+
+Prometheus:
+URL: http://IP-SERVIDOR:9090
+
+Zabbix:
+URL: http://IP-SERVIDOR
+Login: Admin
+Senha: zabbix
 
 Bons testes!
 

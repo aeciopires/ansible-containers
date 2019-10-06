@@ -1,0 +1,76 @@
+--- 
+# Criando os containers
+- name: "Criando o diretorio local do volume {{ mysql_host_dir_volume }}"
+  file:
+    path: "{{ mysql_host_dir_volume }}"
+    state: directory
+
+- name: "Criando o conteiner {{ mysql_container_name }} "
+  docker_container:
+    name: "{{ mysql_container_name }}"
+    image: "{{ mysql_container_image }}"
+    detach: yes
+    volumes:
+      - "{{ mysql_host_dir_volume }}:{{ mysql_container_dir_volume }}"
+    restart_policy: "{{ container_restart_policy }}"
+    ports:
+          - "{{ mysql_host_port }}:{{ mysql_container_port }}"
+    env:
+      MYSQL_HOST: "{{ mysql_host }}"
+      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+      MYSQL_DATABASE: "{{ mysql_database }}"
+      MYSQL_USER: "{{ mysql_user }}"
+      MYSQL_PASSWORD: "{{ mysql_password }}"
+
+- name: "Criando o conteiner {{ zbxserver_container_name }} "
+  docker_container:
+    name: "{{ zbxserver_container_name }}"
+    image: "{{ zbxserver_container_image }}"
+    detach: yes
+    restart_policy: "{{ container_restart_policy }}"
+    ports:
+          - "{{ zbxserver_host_port }}:{{ zbxserver_container_port }}"
+    env:
+      DB_SERVER_HOST: "{{ mysql_host }}"
+      DB_SERVER_PORT: "{{ mysql_host_port }}"
+      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+      MYSQL_DATABASE: "{{ mysql_database }}"
+      MYSQL_USER: "{{ mysql_user }}"
+      MYSQL_PASSWORD: "{{ mysql_password }}"
+
+- name: "Criando o conteiner {{ zbxweb_container_name }} "
+  when: zbxweb_protocol == "http"
+  docker_container:
+    name: "{{ zbxweb_container_name }}"
+    image: "{{ zbxweb_container_image }}"
+    detach: yes
+    restart_policy: "{{ container_restart_policy }}"
+    ports:
+          - "{{ zbxweb_host_port }}:{{ zbxweb_container_port }}"
+    env:
+      DB_SERVER_HOST: "{{ mysql_host }}"
+      DB_SERVER_PORT: "{{ mysql_host_port }}"
+      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+      MYSQL_DATABASE: "{{ mysql_database }}"
+      MYSQL_USER: "{{ mysql_user }}"
+      MYSQL_PASSWORD: "{{ mysql_password }}"
+      ZBX_SERVER_HOST: "{{ zbxweb_server_host }}"
+      PHP_TZ: "{{ zbxweb_timezone }}"
+
+- name: "Criando o conteiner {{ zbxagent_container_name }} "
+  docker_container:
+    name: "{{ zbxagent_container_name }}"
+    image: "{{ zbxagent_container_image }}"
+    detach: yes
+    privileged: yes
+    network_mode: host
+    hostname: "{{ ansible_hostname }}"
+    volumes:
+      - "/:/rootfs"
+      - "/var/run:/var/run"
+    restart_policy: "{{ container_restart_policy }}"
+    ports:
+          - "{{ zbxagent_host_port }}:{{ zbxagent_container_port }}"
+    env:
+      ZBX_HOSTNAME: "{{ ansible_hostname }}"
+      ZBX_SERVER_HOST: "{{ zbxagent_server_host }}"

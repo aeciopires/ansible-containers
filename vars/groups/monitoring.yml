@@ -23,3 +23,40 @@ prometheus_container_port: "9090"
 prometheus_permissions: "1755"
 prometheus_container_user_id: "65534"
 prometheus_container_group_id: "65534"
+
+zabbix_version: "ubuntu-4.2-latest"
+
+# Variaveis uteis a inicializacao dos conteineres do Zabbix-Server
+zbxserver_container_name: zabbix-server
+zbxserver_container_image: "zabbix/zabbix-server-mysql:{{ zabbix_version }}"
+zbxserver_host_port: "10051"
+zbxserver_container_port: "10051"
+
+# Variaveis uteis a inicializacao dos conteineres do Zabbix-Web
+zbxweb_container_name: zabbix-web
+zbxweb_container_image: "zabbix/zabbix-web-apache-mysql:{{ zabbix_version }}"
+zbxweb_host_port: "80"
+zbxweb_container_port: "80"
+zbxweb_server_host: "172.17.0.1"
+zbxweb_protocol: "http"
+zbxweb_timezone: America/Sao_Paulo
+
+# Variaveis uteis a inicializacao dos conteineres do Zabbix-Agent
+zbxagent_container_name: zabbix-agent
+zbxagent_container_image: "zabbix/zabbix-agent:{{ zabbix_version }}"
+zbxagent_host_port: "10050"
+zbxagent_container_port: "10050"
+zbxagent_server_host: "172.17.0.1,172.17.0.5"
+
+# Variaveis uteis a inicializacao dos conteineres do MySQL
+mysql_container_name: mysql-zabbix
+mysql_container_image: "mysql:5.7"
+mysql_host_dir_volume: /docker/mysql/zabbix/data
+mysql_container_dir_volume: /var/lib/mysql
+mysql_host_port: "3306"
+mysql_container_port: "3306"
+mysql_host: "172.17.0.1"
+mysql_root_password: secret
+mysql_database: zabbix
+mysql_user: zabbix
+mysql_password: zabbix

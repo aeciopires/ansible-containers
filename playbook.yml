@@ -24,3 +24,7 @@
     - name: Executando a role que cria o conteiner do Prometheus
       include_role:
         name: container_prometheus
+
+    - name: Executando a role que cria os conteineres do Zabbix-Server, Zabbix-Web, Zabbix-Agent e MySQL
+      include_role:
+        name: container_zabbix

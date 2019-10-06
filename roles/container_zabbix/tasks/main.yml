@@ -1,0 +1,4 @@
+--- 
+# Cria container
+- name: "Criando o conteiner do Zabbix-Server, Zabbix-Web, Zabbix-Agent e MySQL"
+  import_tasks: create_container.yml
